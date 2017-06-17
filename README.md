@@ -1,5 +1,12 @@
 # `react-scripts-ts` [![npm version](https://badge.fury.io/js/react-scripts-ts.svg)](https://badge.fury.io/js/react-scripts-ts) [![Build Status](https://travis-ci.org/wmonk/create-react-app-typescript.svg?branch=master)](https://travis-ci.org/wmonk/create-react-app-typescript)
 
+Fork of create-react-app-typescript with added support for placing modules 
+that can be imported using absolute paths into a node_modules directory that is 
+a sub directory of the src folder. To support this it is necessary to tell 
+jest to NOT ignore src/node_modules folder when transpiling and running tests. 
+
+[`See CRA issue`](https://github.com/facebookincubator/create-react-app/issues/607)
+
 Create React apps (with Typescript) with no build configuration.
 
 _Do you know react and want to try out typescript? Or do you know typescript and want to try out react?_ Get all the benefits from `create-react-app` but you use typescript! 🚀

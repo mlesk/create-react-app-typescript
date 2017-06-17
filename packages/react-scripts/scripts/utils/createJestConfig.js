@@ -38,8 +38,27 @@ module.exports = (resolve, rootDir) => {
       '^.+\\.tsx?$': resolve('config/jest/typescriptTransform.js'),
       '^(?!.*\\.(css|json)$)': resolve('config/jest/fileTransform.js'),
     },
+    haste: {
+      // This is necesary to support both putting symlinks to addressable
+      // folders in src/node_modules as well as putting addressable folders
+      // directly into src/node_modules rather than symlinking.
+      providesModuleNodeModules: ['.*'],
+    },
+    testPathIgnorePatterns: [
+      // reported : https://github.com/facebookincubator/create-react-app/issues/607
+      // support ignoring /node_modules/ unless it is contained
+      // directly in the src folder.
+      // with negative look behind (not supported in javascript
+      // (?<!([/\\\\]src))[/\\\\]node_modules[/\\\\]
+      '^(?!.*([/\\\\]src[/\\\\]node_modules[/\\\\])).*([/\\\\]node_modules[/\\\\])',
+    ],
     transformIgnorePatterns: [
-      '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$',
+      // reported https://github.com/facebookincubator/create-react-app/issues/607
+      // support ignoring /node_modules/ unless it is contained
+      // directly in the src folder.
+      // with negative look behind (not supported in javascript
+      // (?<!([/\\\\]src))[/\\\\]node_modules[/\\\\]
+      '^(?!.*([/\\\\]src[/\\\\]node_modules[/\\\\])).*([/\\\\]node_modules[/\\\\])',
     ],
     moduleNameMapper: {
       '^react-native$': 'react-native-web',
